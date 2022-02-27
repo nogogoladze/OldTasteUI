@@ -1,0 +1,22 @@
+<div class="container">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Department</th>
+      <th>Location</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let company of companies">
+      <td><span>{{company.id}}</span></td>
+      <td><span>{{company.companyName}}</span></td>
+      <td><span>{{company.owner}}</span></td>
+      <td><span>{{company.contactPerson}}</span></td>
+      <td><span>{{company.dataLoc.address}}</span></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
