@@ -9,12 +9,14 @@ import {HttpClientModule} from "@angular/common/http";
 import {HomeComponent} from "./home/home.component";
 import {CompanyComponent} from "./company/company.component";
 import { FormsModule } from '@angular/forms';
+import { ProviderComponent } from './provider/provider.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CompanyComponent
+    CompanyComponent,
+    ProviderComponent
   ],
   imports: [
     BrowserModule,

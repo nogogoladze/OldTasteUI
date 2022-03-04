@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpErrorResponse} from "@angular/common/http";
 import { NgForm } from '@angular/forms';
 import { Company } from './company';
-import { CompanyService } from '../service/CompanyService';
+import { CompanyService } from '../service/companyService';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class Location {
@@ -14,18 +14,6 @@ export class Location {
     public region: string,
     public districts: string,
     public address: string
-  ) {
-  }
-}
-
-export class Provider {
-  constructor(
-    public id: number,
-    public contactPerson: string,
-    public phone: number,
-    public mail: string,
-    public age: number,
-    public description: string
   ) {
   }
 }
@@ -65,14 +53,6 @@ export class CompanyComponent implements OnInit {
   ngOnInit() {
     this.getCompany()
   }
-
-  // getCompany(): void {
-  //   this.httpClient.get<Company[]>(`${this.serverUrl}/company`).subscribe(
-  //     (response: Company[]) => {
-  //       this.companies = response;
-  //     }
-  //   );
-  // }
 
   public getCompany(): void {
     this.companyService.getCompany().subscribe(
