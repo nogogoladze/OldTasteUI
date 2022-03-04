@@ -70,7 +70,7 @@
                     Company
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item" ngModel type="text" *ngFor="let company of companies">
+                    <button class="dropdown-item" ngbDropdownItem type="text" *ngFor="let company of companies">
                         {{company.companyName}}
                         </button>
                 </div>
@@ -97,7 +97,7 @@
              </button>
           </div>
           <div class="modal-body">
-             <form #editForm="ngForm">
+             <form #editForm="ngModel">
                 <input type="hidden" ngModel="{{editProvider?.id}}" name="id" class="form-control" id="id" placeholder="Id">
                 <div class="form-group">
                    <label for="contactPerson">Contact Person</label>
