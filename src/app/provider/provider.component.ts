@@ -1,10 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit} from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Company } from '../company/company';
-import { CompanyService } from '../service/companyService';
-import { ProviderService } from '../service/providerService';
-import { Provider } from './provider';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Company} from '../company/company';
+import {CompanyService} from '../service/companyService';
+import {ProviderService} from '../service/providerService';
+import {Provider} from './provider';
 
 
 @Component({
@@ -22,7 +22,8 @@ export class ProviderComponent implements OnInit {
   constructor(
     private providerService: ProviderService,
     private companyService: CompanyService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getProvider()
@@ -100,6 +101,9 @@ export class ProviderComponent implements OnInit {
     if (mode === 'add') {
       button.setAttribute('data-target', '#addProviderModal');
     }
+    if (mode === 'relateCompany') {
+      button.setAttribute('data-target', '#relateCompanyModal');
+    }
     if (mode === 'edit') {
       this.editProvider = provider;
       button.setAttribute('data-target', '#editProviderModal');
@@ -108,7 +112,7 @@ export class ProviderComponent implements OnInit {
       this.deleteProvider = provider;
       button.setAttribute('data-target', '#deleteProviderModal');
     }
-  
+
     container.appendChild(button);
     button.click();
   }

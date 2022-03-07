@@ -1,159 +1,176 @@
 <div class="container" id="main-container">
-    <div class="border">
-      <button type="button" class="btn btn-md btn-outline-primary" (click)="openModal(null, 'add')">
-        <i class="fa fa-user"></i>New Provider</button>
-    </div>
-  
-    <table class="table table-bordered table-striped">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Contact Person</th>
-        <th>Phone</th>
-        <th>Mail</th>
-        <th>Description</th>
-        <th>Company</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let provider of providers">
-        <td><span>{{provider.id}}</span></td>
-        <td><span>{{provider.contactPerson}}</span></td>
-        <td><span>{{provider.phone}}</span></td>
-        <td><span>{{provider.mail}}</span></td>
-        <td><span>{{provider.description}}</span></td>
-        <td><span>{{provider.company.companyName}}</span></td>
-        <td>
-          <button type="button" class="btn btn-sm btn-warning" (click)="openModal(provider, 'edit')">
-            <i class="fa fa-edit"></i>Edit</button>
-          <button type="button" class="btn btn-sm btn-danger" (click)="openModal(provider, 'delete')">
-            <i class="fa fa-remove"></i>Delete</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  
+  <div class="border">
+    <button type="button" class="btn btn-md btn-outline-primary" (click)="openModal(null, 'add')">
+      <i class="fa fa-user"></i>New Provider
+    </button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Contact Person</th>
+      <th>Phone</th>
+      <th>Mail</th>
+      <th>Description</th>
+      <th>Company</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let provider of providers">
+      <td><span>{{provider.id}}</span></td>
+      <td><span>{{provider.contactPerson}}</span></td>
+      <td><span>{{provider.phone}}</span></td>
+      <td><span>{{provider.mail}}</span></td>
+      <td><span>{{provider.description}}</span></td>
+      <td><span>{{provider.company}}</span></td>
+      <td>
+        <button type="button" class="btn btn-sm btn-warning" (click)="openModal(provider, 'edit')">
+          <i class="fa fa-edit"></i>Edit
+        </button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="openModal(provider, 'delete')">
+          <i class="fa fa-remove"></i>Delete
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
   <!-- Add Provider Modal -->
-  <div class="modal fade" id="addProviderModal" tabindex="-1" role="dialog" aria-labelledby="addProviderModalLabel" aria-hidden="true">
+  <div class="modal fade" id="addProviderModal" tabindex="-1" role="dialog" aria-labelledby="addProviderModalLabel"
+       aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addProviderModalLabel">Add Provider</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
-         <div class="modal-body">
+        <div class="modal-body">
           <form #addForm="ngForm" (ngSubmit)="addProvider(addForm)">
             <div class="form-group">
-               <label for="contactPerson">Contact Person</label>
-               <input type="text" ngModel name="contactPerson" class="form-control" id="contactPerson" placeholder="contactPerson" required>
+              <label for="contactPerson">Contact Person</label>
+              <input type="text" ngModel name="contactPerson" class="form-control" id="contactPerson"
+                     placeholder="contactPerson" required>
             </div>
             <div class="form-group">
-               <label for="phone">Phone</label>
-               <input type="number" ngModel name="phone" class="form-control" id="phone" placeholder="phone" required>
-            </div>
-
-            <div class="form-group">
-               <label for="mail">Mail</label>
-               <input type="mail" ngModel name="mail" class="form-control" id="mail" placeholder="mail" required>
+              <label for="phone">Phone</label>
+              <input type="number" ngModel name="phone" class="form-control" id="phone" placeholder="phone" required>
             </div>
 
             <div class="form-group">
-                <label for="description">Description</label>
-                <input type="text" ngModel name="description" class="form-control" id="description" placeholder="description" required>
-             </div>
+              <label for="mail">Mail</label>
+              <input type="mail" ngModel name="mail" class="form-control" id="mail" placeholder="mail" required>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" ngModel name="description" class="form-control" id="description"
+                     placeholder="description" required>
+            </div>
 
             <div class="dropdown">
-                <button (click)="getCompany()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
-                    Company
+              <button (click)="getCompany()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                      data-toggle="dropdown" aria-expanded="false">
+                Company
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" ngbDropdownItem ngModel="{{editProvider?.company}}" type="text"
+                        *ngFor="let company of companies">
+                  {{company.companyName}}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item" ngbDropdownItem type="text" *ngFor="let company of companies">
-                        {{company.companyName}}
-                        </button>
-                </div>
+              </div>
             </div>
-           
             <div class="modal-footer">
-               <button type="button" id="add-provider-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+              <button type="button" id="add-provider-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
             </div>
           </form>
-         </div>
+        </div>
       </div>
     </div>
   </div>
-  
-  <!-- Edit Provider Modal -->
-  <div class="modal fade" id="editProviderModal" tabindex="-1" role="dialog" aria-labelledby="editProviderModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="editProviderModalLabel">Edit Provider {{editProvider?.contactPerson}}</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-             </button>
-          </div>
-          <div class="modal-body">
-             <form #editForm="ngModel">
-                <input type="hidden" ngModel="{{editProvider?.id}}" name="id" class="form-control" id="id" placeholder="Id">
-                <div class="form-group">
-                   <label for="contactPerson">Contact Person</label>
-                   <input type="text" ngModel="{{editProvider?.contactPerson}}" name="contactPerson" class="form-control" id="contactPerson" aria-describedby="emailHelp" placeholder="Contact Person">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="number" ngModel="{{editProvider?.phone}}" name="phone" class="form-control" id="phone" placeholder="Phone">
-                 </div>
-                <div class="form-group">
-                   <label for="mail">Mail</label>
-                   <input type="text" ngModel="{{editProvider?.mail}}" name="mail" class="form-control" id="mail" placeholder="mail">
-                </div>
-                <div class="form-group">
-                   <label for="description">Description</label>
-                   <input type="text" ngModel="{{editProvider?.description}}" name="description" class="form-control" id="description" placeholder="description">
-                </div>
 
-                <div class="dropdown">
-                    <button (click)="getCompany()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
-                        Company
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                      <button class="dropdown-item" type="button" *ngFor="let company of companies" ngModel="{{editProvider?.company.companyName}}">{{company.companyName}}</button>
-                    </div>
-                </div>
-                
-                <div class="modal-footer">
-                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                   <button (click)="updateProvider(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
-                </div>
-             </form>
-          </div>
-       </div>
+  <!-- Edit Provider Modal -->
+  <div class="modal fade" id="editProviderModal" tabindex="-1" role="dialog" aria-labelledby="editProviderModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProviderModalLabel">Edit Provider {{editProvider?.contactPerson}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <input type="hidden" ngModel="{{editProvider?.id}}" name="id" class="form-control" id="id" placeholder="Id">
+            <div class="form-group">
+              <label for="contactPerson">Contact Person</label>
+              <input type="text" ngModel="{{editProvider?.contactPerson}}" name="contactPerson" class="form-control"
+                     id="contactPerson" aria-describedby="emailHelp" placeholder="Contact Person">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="number" ngModel="{{editProvider?.phone}}" name="phone" class="form-control" id="phone"
+                     placeholder="Phone">
+            </div>
+            <div class="form-group">
+              <label for="mail">Mail</label>
+              <input type="text" ngModel="{{editProvider?.mail}}" name="mail" class="form-control" id="mail"
+                     placeholder="mail">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" ngModel="{{editProvider?.description}}" name="description" class="form-control"
+                     id="description" placeholder="description">
+            </div>
+
+            <div class="dropdown">
+              <button (click)="getCompany()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                      data-toggle="dropdown" aria-expanded="false">
+                Company
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="button" *ngFor="let company of companies"
+                        ngModel="{{editProvider?.company}}" name="dasdasgdhfashgd" id="company">{{company}}</button>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+              <button (click)="updateProvider(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save
+                changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-  
+
   <!-- Delete Modal -->
-  <div class="modal fade" id="deleteProviderModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteProviderModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+       aria-hidden="true">
     <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="deleteModelLabel">Delete Provider</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-             </button>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModelLabel">Delete Provider</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete provider {{deleteProvider?.contactPerson}}?</p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button (click)="deleteProviders(deleteProvider?.id)" class="btn btn-danger" data-dismiss="modal">Yes
+            </button>
           </div>
-          <div class="modal-body">
-             <p>Are you sure you want to delete provider {{deleteProvider?.contactPerson}}?</p>
-             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button (click)="deleteProviders(deleteProvider?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
-             </div>
-          </div>
-       </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-  

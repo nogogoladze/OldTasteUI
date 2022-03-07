@@ -1,7 +1,8 @@
 <div class="container" id="main-container">
   <div class="border">
     <button type="button" class="btn btn-md btn-outline-primary" (click)="openModal(null, 'add')">
-      <i class="fa fa-user"></i>New Company</button>
+      <i class="fa fa-user"></i>New Company
+    </button>
   </div>
 
   <table class="table table-bordered table-striped">
@@ -21,127 +22,140 @@
       <td><span>{{company.companyName}}</span></td>
       <td><span>{{company.owner}}</span></td>
       <td><span>{{company.contactPerson}}</span></td>
-      <td><span>{{company.location.address}}</span></td>     
+      <td><span>{{company.location.address}}</span></td>
       <td>
         <button type="button" class="btn btn-sm btn-info" (click)="openModal(null , 'detail')">
-          <i class="fa fa-search"></i>providers</button>  
+          <i class="fa fa-search"></i>providers
+        </button>
         <button type="button" class="btn btn-sm btn-warning" (click)="openModal(company, 'edit')">
-          <i class="fa fa-edit"></i>Edit</button>
+          <i class="fa fa-edit"></i>Edit
+        </button>
         <button type="button" class="btn btn-sm btn-danger" (click)="openModal(company, 'delete')">
-          <i class="fa fa-remove"></i>Delete</button>
+          <i class="fa fa-remove"></i>Delete
+        </button>
       </td>
     </tr>
     </tbody>
   </table>
 
-<!-- Add Company Modal -->
-<div class="modal fade" id="addCompanyModal" tabindex="-1" role="dialog" aria-labelledby="addCompanyModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addCompanyModalLabel">Add Company</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
+  <!-- Add Company Modal -->
+  <div class="modal fade" id="addCompanyModal" tabindex="-1" role="dialog" aria-labelledby="addCompanyModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCompanyModalLabel">Add Company</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="addCompany(addForm)">
+            <div class="form-group">
+              <label for="name">Company Name</label>
+              <input type="text" ngModel name="companyName" class="form-control" id="name" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+              <label for="owner">Email Address</label>
+              <input type="text" ngModel name="owner" class="form-control" id="owner" placeholder="Owner" required>
+            </div>
+            <div class="form-group">
+              <label for="contactPerson">Contact Person</label>
+              <input type="text" ngModel name="contactPerson" class="form-control" id="contactPerson"
+                     placeholder="Contact Person" required>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" id="add-company-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
       </div>
-       <div class="modal-body">
-        <form #addForm="ngForm" (ngSubmit)="addCompany(addForm)">
-          <div class="form-group">
-             <label for="name">Company Name</label>
-             <input type="text" ngModel name="companyName" class="form-control" id="name" placeholder="Name" required>
-          </div>
-          <div class="form-group">
-             <label for="owner">Email Address</label>
-             <input type="text" ngModel name="owner" class="form-control" id="owner" placeholder="Owner" required>
-          </div>
-          <div class="form-group">
-             <label for="contactPerson">Contact Person</label>
-             <input type="text" ngModel name="contactPerson" class="form-control" id="contactPerson" placeholder="Contact Person" required>
-          </div>
-         
-          <div class="modal-footer">
-             <button type="button" id="add-company-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
-          </div>
-        </form>
-       </div>
     </div>
   </div>
-</div>
 
-<!-- Edit Company Modal -->
-<div class="modal fade" id="editCompanyModal" tabindex="-1" role="dialog" aria-labelledby="editCompanyModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-     <div class="modal-content">
+  <!-- Edit Company Modal -->
+  <div class="modal fade" id="editCompanyModal" tabindex="-1" role="dialog" aria-labelledby="editCompanyModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
         <div class="modal-header">
-           <h5 class="modal-title" id="editCompanyModalLabel">Edit Company {{editCompany?.companyName}}</h5>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-           </button>
+          <h5 class="modal-title" id="editCompanyModalLabel">Edit Company {{editCompany?.companyName}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
-           <form #editForm="ngForm">
-              <input type="hidden" ngModel="{{editCompany?.id}}" name="id" class="form-control" id="id" placeholder="Id">
-              <div class="form-group">
-                 <label for="companyName">Company Name</label>
-                 <input type="text" ngModel="{{editCompany?.companyName}}" name="companyName" class="form-control" id="companyName" aria-describedby="emailHelp" placeholder="Company Name">
-              </div>
-              <div class="form-group">
-                 <label for="owner">Owner</label>
-                 <input type="text" ngModel="{{editCompany?.owner}}" name="owner" class="form-control" id="owner" placeholder="Owner">
-              </div>
-              <div class="form-group">
-                 <label for="contactPerson">Contact Person</label>
-                 <input type="text" ngModel="{{editCompany?.contactPerson}}" name="contactPerson" class="form-control" id="contactPerson" placeholder="Contact Person">
-              </div>
-              <!-- <div class="form-group">
-                <label for="location">Location</label>
-                <input type="text" ngModel="{{editCompany?.location}}" name="location" class="form-control" id="location" placeholder="Location">
-              </div> -->
+          <form #editForm="ngForm">
+            <input type="hidden" ngModel="{{editCompany?.id}}" name="id" class="form-control" id="id" placeholder="Id">
+            <div class="form-group">
+              <label for="companyName">Company Name</label>
+              <input type="text" ngModel="{{editCompany?.companyName}}" name="companyName" class="form-control"
+                     id="companyName" aria-describedby="emailHelp" placeholder="Company Name">
+            </div>
+            <div class="form-group">
+              <label for="owner">Owner</label>
+              <input type="text" ngModel="{{editCompany?.owner}}" name="owner" class="form-control" id="owner"
+                     placeholder="Owner">
+            </div>
+            <div class="form-group">
+              <label for="contactPerson">Contact Person</label>
+              <input type="text" ngModel="{{editCompany?.contactPerson}}" name="contactPerson" class="form-control"
+                     id="contactPerson" placeholder="Contact Person">
+            </div>
+            <!-- <div class="form-group">
+              <label for="location">Location</label>
+              <input type="text" ngModel="{{editCompany?.location}}" name="location" class="form-control" id="location" placeholder="Location">
+            </div> -->
 
-              <div class="modal-footer">
-                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                 <button (click)="updateCompany(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
-              </div>
-           </form>
+            <div class="modal-footer">
+              <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+              <button (click)="updateCompany(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save
+                changes
+              </button>
+            </div>
+          </form>
         </div>
-     </div>
-  </div>
-</div>
-
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteCompanyModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-     <div class="modal-content">
-        <div class="modal-header">
-           <h5 class="modal-title" id="deleteModelLabel">Delete Company</h5>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-           </button>
-        </div>
-        <div class="modal-body">
-           <p>Are you sure you want to delete company {{deleteCompan?.companyName}}?</p>
-           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              <button (click)="deleteCompany(deleteCompan?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
-           </div>
-        </div>
-     </div>
-  </div>
-</div>
-
-<!-- Providers Detail -->
-<div class="modal fade" id="providersDetail" tabindex="-1" role="dialog" aria-labelledby="providersDetailModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="providersDetailModalLabel">Providers Detail</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
       </div>
-       <div class="modal-body" *ngFor="let company of companies">  
-         <div *ngFor="let provider of company.providers">
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteCompanyModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModelLabel">Delete Company</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete company {{deleteCompan?.companyName}}?</p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button (click)="deleteCompany(deleteCompan?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Providers Detail -->
+  <div class="modal fade" id="providersDetail" tabindex="-1" role="dialog" aria-labelledby="providersDetailModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="providersDetailModalLabel">Providers Detail</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngFor="let company of companies">
+          <div *ngFor="let provider of company.providers">
             <table class="table table-bordered table-striped">
               <thead>
               <tr>
@@ -163,9 +177,9 @@
               </tr>
               </tbody>
             </table>
-       </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
 </div>

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
-import { NgForm } from '@angular/forms';
-import { Company } from './company';
-import { CompanyService } from '../service/companyService';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgForm} from '@angular/forms';
+import {Company} from './company';
+import {CompanyService} from '../service/companyService';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 export class Location {
   constructor(
@@ -46,7 +46,6 @@ export class CompanyComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private modalService: NgbModal
-
   ) {
   }
 
@@ -65,9 +64,7 @@ export class CompanyComponent implements OnInit {
       }
     );
   }
-  
 
-  
 
   // onSubmit(company: NgForm) {
   //   const url = `${this.serverUrl}/company/save`;
@@ -137,7 +134,7 @@ export class CompanyComponent implements OnInit {
     if (mode === 'detail') {
       button.setAttribute('data-target', '#providersDetail');
     }
-    
+
     container.appendChild(button);
     button.click();
   }
