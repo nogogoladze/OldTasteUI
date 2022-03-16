@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiLocalUrl: 'http://localhost:8080/api/v1'
+  apiLocalUrl: 'http://localhost:8080/api/v1',
+  apiLoinUrl: 'http://localhost:8080/api/auth/'
 };
 
 /*

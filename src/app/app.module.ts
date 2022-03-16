@@ -20,7 +20,8 @@ import { LoginComponent } from './login/login.component';
     CompanyComponent,
     ProviderComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    ProviderComponent
   ],
   imports: [
     BrowserModule,

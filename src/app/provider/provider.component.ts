@@ -1,10 +1,10 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Company} from '../company/company';
-import {CompanyService} from '../service/companyService';
-import {ProviderService} from '../service/providerService';
-import {Provider} from './provider';
+import {Company} from '../model/company';
+import {CompanyService} from '../_service/company.service';
+import {ProviderService} from '../_service/provider.service';
+import {Provider} from '../model/provider';
 
 
 @Component({

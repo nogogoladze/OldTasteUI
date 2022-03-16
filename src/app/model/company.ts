@@ -1,5 +1,5 @@
-import {Provider} from "../provider/provider";
-import {Product, Location} from "./company.component";
+import {Provider} from "./provider";
+import {Product, Location} from "../company/company.component";
 
 export class Company {
   constructor(

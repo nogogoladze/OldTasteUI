@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgForm} from '@angular/forms';
-import {Company} from './company';
-import {CompanyService} from '../service/companyService';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Company} from '../model/company';
+import { CompanyService } from '../_service/company.service';
 
 export class Location {
   constructor(
@@ -38,14 +37,15 @@ export class Product {
 export class CompanyComponent implements OnInit {
   public companies: Company[];
 
+  currentUser: any;
+
   closeResult: string;
 
   public editCompany: Company;
   public deleteCompan: Company;
 
   constructor(
-    private companyService: CompanyService,
-    private modalService: NgbModal
+    private companyService: CompanyService
   ) {
   }
 

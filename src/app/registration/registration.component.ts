@@ -1,8 +1,5 @@
-import {HttpErrorResponse} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {RegistrationService} from '../service/registrationService';
-import {Registration} from './registration';
+import {Component} from '@angular/core';
+import { AuthService } from '../_service/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -10,24 +7,27 @@ import {Registration} from './registration';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent {
-  model: any = {};
-  loading = false;
+  form: any = {};
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
 
   constructor(
-    private router: Router,
-    private registrationService: RegistrationService
+    private authService: AuthService
   ) {
   }
 
-  register() {
-    this.registrationService.addUser(this.model).subscribe(
-      (response: Registration) => {
-        console.log(response);
-        this.router.navigate(['login']);
+  onSubmit() {
+    this.authService.register(this.form).subscribe(
+      data => {
+        console.log(data);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
       },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
+      }
     );
   }
 }
